@@ -1,38 +1,108 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body{
+  background-color: rgba(126, 126, 126, 0.192)
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.wrapper {
+  position: relative;
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
+input[type="text"],
+button[type="submit"] {
+  margin-top: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+}
+
+.result {
+  display: flex;
+}
+
+@media (max-width: 415px) {
+  .result {
+    flex-direction: column;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.trackItems {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.trackItems .item {
+  flex-grow: 1;
+  width: 100px;
+  max-width: 250px;
+  height: 100px;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.trackItems .item div {
+  margin: 0;
+  padding: 5px;
+  text-align: center;
+  font-size: 12px;
+  color: white;
+  background-color: rgb(0, 0, 0, 60%);
+}
+
+.artistItems {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  margin-top: -5px;
+  max-width: 20%;
+}
+
+@media (max-width: 415px) {
+  .artistItems {
+    margin-top: 5px;
+    max-width: 100%;
+  }
+}
+
+.artistItems .item {
+  flex-grow: 1;
+  margin: 5px;
+  width: 80px;
+  height: 80px;
+  border: 5px solid gray;
+  border-radius: 100%;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.artistItems .item div {
+  margin: 0;
+  padding: 5px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  text-align: center;
+  font-size: 10px;
   color: white;
+  background-color: rgb(0, 0, 0, 0%);
+  border-radius: 100%;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.artistItems .item div span {
+  display: none;
+  word-wrap: break-word;
 }
