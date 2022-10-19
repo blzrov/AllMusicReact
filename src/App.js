@@ -7,6 +7,7 @@ function App() {
   const [value, setValue] = useState("");
   const [audio, setAudio] = useState("");
   const [tracks, setTracks] = useState([]);
+  const [isLoad, setIsLoad] = useState(false);
   const fetchResult = [];
 
   function doFetch(q) {
@@ -17,6 +18,8 @@ function App() {
         "X-RapidAPI-Key": "ca03dc8b4amsh8fe919ef52202dbp1412f2jsn8b0561de19b7",
       },
     };
+    setAudio("");
+    setIsLoad(true);
     fetch("https://deezerdevs-deezer.p.rapidapi.com/search?" + q, options)
       .then((response) => response.json())
       .then((response) => handleData(response))
@@ -31,9 +34,10 @@ function App() {
       doFetch(data.next.split("?")[1]);
     } else {
       setTracks(fetchResult);
+      setIsLoad(false);
     }
   }
-  console.log("app");
+
   const memorizedTrackItems = React.useMemo(
     () => (
       <TrackItems
@@ -58,6 +62,19 @@ function App() {
     [tracks]
   );
 
+  React.useEffect(() => {
+    function fixHeight() {
+      console.log("1");
+      let items = document.querySelectorAll(".item");
+      items.forEach(
+        (elem) => (elem.style.height = getComputedStyle(elem).width)
+      );
+    }
+    fixHeight();
+    window.addEventListener("resize", fixHeight);
+    return window.removeEventListener("resize", fixHeight);
+  }, [tracks]);
+
   console.log("render App");
   return (
     <div className="App">
@@ -77,6 +94,7 @@ function App() {
             style={{ minWidth: "30%" }}
             placeholder="Oxxxymiron"
             onChange={(e) => setValue(e.target.value)}
+            value={value}
           />
           <button
             type="submit"
@@ -96,8 +114,14 @@ function App() {
           />
         </div>
         <div className="result">
-          {memorizedTrackItems}
-          {memorizedArtistItems}
+          {isLoad ? (
+            "Подождите..."
+          ) : (
+            <>
+              {memorizedTrackItems}
+              {memorizedArtistItems}
+            </>
+          )}
         </div>
       </div>
     </div>

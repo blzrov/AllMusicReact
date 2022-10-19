@@ -5,10 +5,10 @@ export default function TrackItems({ tracks, ...props }) {
   console.log("render TrackItems");
   return (
     <div className="trackItems">
-      {tracks.map((e) => (
+      {tracks.map((track, index) => (
         <Track
-          key={e.id}
-          track={e}
+          key={index}
+          track={track}
           changeAudio={props.changeAudio}
           setValue={props.setValue}
           doFetch={props.doFetch}

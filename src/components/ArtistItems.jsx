@@ -10,14 +10,14 @@ export default function ArtistItems({ tracks, ...props }) {
     }
     return false;
   });
-  
+
   console.log("render ArtistItems");
   return (
     <div className="artistItems">
-      {artistsItems.map((e) => (
+      {artistsItems.map((track, index) => (
         <Artist
-          key={e.id}
-          track={e}
+          key={index}
+          track={track}
           changeAudio={props.changeAudio}
           setValue={props.setValue}
           doFetch={props.doFetch}
