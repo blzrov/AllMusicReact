@@ -38,30 +38,6 @@ function App() {
     }
   }
 
-  const memorizedTrackItems = React.useMemo(
-    () => (
-      <TrackItems
-        tracks={tracks}
-        changeAudio={setAudio}
-        setValue={setValue}
-        doFetch={doFetch}
-      />
-    ),
-    [tracks]
-  );
-
-  const memorizedArtistItems = React.useMemo(
-    () => (
-      <ArtistItems
-        tracks={tracks}
-        changeAudio={setAudio}
-        setValue={setValue}
-        doFetch={doFetch}
-      />
-    ),
-    [tracks]
-  );
-
   React.useEffect(() => {
     function fixHeight() {
       console.log("1");
@@ -72,7 +48,7 @@ function App() {
     }
     fixHeight();
     window.addEventListener("resize", fixHeight);
-    return window.removeEventListener("resize", fixHeight);
+    return () => window.removeEventListener("resize", fixHeight);
   }, [tracks]);
 
   console.log("render App");
@@ -118,8 +94,18 @@ function App() {
             "Подождите..."
           ) : (
             <>
-              {memorizedTrackItems}
-              {memorizedArtistItems}
+              <TrackItems
+                tracks={tracks}
+                changeAudio={setAudio}
+                setValue={setValue}
+                doFetch={doFetch}
+              />
+              <ArtistItems
+                tracks={tracks}
+                changeAudio={setAudio}
+                setValue={setValue}
+                doFetch={doFetch}
+              />
             </>
           )}
         </div>
