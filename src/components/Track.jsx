@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function Track({ track, ...props }) {
-  console.log("render Track");
   return (
     <div
       className="item"

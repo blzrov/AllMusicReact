@@ -12,7 +12,6 @@ export default React.memo(
       return false;
     });
 
-    console.log("render ArtistItems");
     return (
       <div className="artistItems">
         {artistsItems.map((track, index) => (

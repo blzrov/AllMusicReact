@@ -3,7 +3,6 @@ import Track from "./Track";
 
 export default React.memo(
   function TrackItems({ tracks, ...props }) {
-    console.log("render TrackItems");
     return (
       <div className="trackItems">
         {tracks.map((track, index) => (

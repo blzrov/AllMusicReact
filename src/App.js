@@ -10,7 +10,7 @@ function App() {
   const [isLoad, setIsLoad] = useState(false);
   const fetchResult = [];
 
-  function doFetch(q) {
+  function doFetch(query) {
     const options = {
       method: "GET",
       headers: {
@@ -20,10 +20,10 @@ function App() {
     };
     setAudio("");
     setIsLoad(true);
-    fetch("https://deezerdevs-deezer.p.rapidapi.com/search?" + q, options)
+    fetch("https://deezerdevs-deezer.p.rapidapi.com/search?" + query, options)
       .then((response) => response.json())
       .then((response) => handleData(response))
-      .catch(() => doFetch(q));
+      .catch(() => doFetch(query));
   }
 
   function handleData(data) {
@@ -40,10 +40,9 @@ function App() {
 
   React.useEffect(() => {
     function fixHeight() {
-      console.log("1");
-      let items = document.querySelectorAll(".item");
+      const items = document.querySelectorAll(".item");
       items.forEach(
-        (elem) => (elem.style.height = getComputedStyle(elem).width)
+        (item) => (item.style.height = getComputedStyle(item).width)
       );
     }
     fixHeight();
@@ -51,64 +50,59 @@ function App() {
     return () => window.removeEventListener("resize", fixHeight);
   }, [tracks]);
 
-  console.log("render App");
   return (
-    <div className="App">
-      <div className="wrapper">
-        <div style={{ fontSize: "20px" }}>
-          <span>
-            Сервис позволяет быстро ознакомиться с самыми популярными треками
-            любого артиста с помощью API Deezer, достаточно ввести запрос и
-            навести курсор на обложку альбома.
-          </span>
-        </div>
-        <h2>ВВЕДИТЕ ЗАПРОС</h2>
-        <div style={{ marginBottom: "15px" }}>
-          <input
-            className="input"
-            type="text"
-            style={{ minWidth: "30%" }}
-            placeholder="Oxxxymiron"
-            onChange={(e) => setValue(e.target.value)}
-            value={value}
-          />
-          <button
-            type="submit"
-            onClick={() => {
+    <div className="wrapper">
+      <div style={{ fontSize: "20px" }}>
+        <span>
+          Сервис позволяет быстро ознакомиться с самыми популярными треками
+          любого артиста с помощью API Deezer, достаточно ввести запрос и
+          навести курсор на обложку альбома.
+        </span>
+      </div>
+      <h2>ВВЕДИТЕ ЗАПРОС</h2>
+      <div style={{ marginBottom: "15px" }}>
+        <input
+          type="text"
+          style={{ minWidth: "30%", marginRight: "5px" }}
+          placeholder="Oxxxymiron"
+          onChange={(e) => setValue(e.target.value)}
+          value={value}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" && value !== "") {
               doFetch("q=" + value);
-            }}
-          >
-            ОТПРАВИТЬ
-          </button>
-          <audio
-            className="audio"
-            style={{ display: "none" }}
-            src={audio}
-            controls
-            autoPlay
-            loop
-          />
-        </div>
-        <div className="result">
-          {isLoad ? (
-            "Подождите..."
-          ) : (
-            <>
-              <TrackItems
-                tracks={tracks}
-                changeAudio={setAudio}
-                setValue={setValue}
-                doFetch={doFetch}
-              />
-              <ArtistItems
-                tracks={tracks}
-                changeAudio={setAudio}
-                setValue={setValue}
-                doFetch={doFetch}
-              />
-            </>
-          )}
-        </div>
+            }
+          }}
+        />
+        <button
+          type="submit"
+          onClick={() => {
+            if (value !== "") doFetch("q=" + value);
+          }}
+          disabled={!value}
+        >
+          ОТПРАВИТЬ
+        </button>
+        <audio style={{ display: "none" }} src={audio} controls autoPlay loop />
+      </div>
+      <div className="result">
+        {isLoad ? (
+          "Подождите..."
+        ) : (
+          <>
+            <TrackItems
+              tracks={tracks}
+              changeAudio={setAudio}
+              setValue={setValue}
+              doFetch={doFetch}
+            />
+            <ArtistItems
+              tracks={tracks}
+              changeAudio={setAudio}
+              setValue={setValue}
+              doFetch={doFetch}
+            />
+          </>
+        )}
       </div>
     </div>
   );
