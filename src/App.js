@@ -9,7 +9,7 @@ function App() {
   const [value, setValue] = useState("");
   const [audio, setAudio] = useState("");
   const [tracks, setTracks] = useState([]);
-  const [context, setContext] = React.useState({ setValue, setAudio, doFetch });
+  const [context] = React.useState({ setValue, setAudio, doFetch });
   const [isLoad, setIsLoad] = useState(false);
   const fetchResult = [];
 
