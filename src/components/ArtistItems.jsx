@@ -2,7 +2,7 @@ import React from "react";
 import Artist from "./Artist";
 
 export default React.memo(
-  function ArtistItems({ tracks, ...props }) {
+  function ArtistItems({ tracks }) {
     const artistsID = [];
     const artistsItems = tracks.filter((element) => {
       if (!artistsID.includes(element.artist.id)) {
