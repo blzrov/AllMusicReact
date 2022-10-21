@@ -9,9 +9,6 @@ export default React.memo(
           <Track
             key={index}
             track={track}
-            changeAudio={props.changeAudio}
-            setValue={props.setValue}
-            doFetch={props.doFetch}
           />
         ))}
       </div>

@@ -3,10 +3,13 @@ import "./App.css";
 import TrackItems from "./components/TrackItems";
 import ArtistItems from "./components/ArtistItems";
 
+export const AppContext = React.createContext();
+
 function App() {
   const [value, setValue] = useState("");
   const [audio, setAudio] = useState("");
   const [tracks, setTracks] = useState([]);
+  const [context, setContext] = React.useState({ setValue, setAudio, doFetch });
   const [isLoad, setIsLoad] = useState(false);
   const fetchResult = [];
 
@@ -88,20 +91,10 @@ function App() {
         {isLoad ? (
           "Подождите..."
         ) : (
-          <>
-            <TrackItems
-              tracks={tracks}
-              changeAudio={setAudio}
-              setValue={setValue}
-              doFetch={doFetch}
-            />
-            <ArtistItems
-              tracks={tracks}
-              changeAudio={setAudio}
-              setValue={setValue}
-              doFetch={doFetch}
-            />
-          </>
+          <AppContext.Provider value={context}>
+            <TrackItems tracks={tracks} />
+            <ArtistItems tracks={tracks} />
+          </AppContext.Provider>
         )}
       </div>
     </div>

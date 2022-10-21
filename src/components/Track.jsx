@@ -1,19 +1,22 @@
 import React from "react";
+import { AppContext } from "../App";
 
-export default function Track({ track, ...props }) {
+export default function Track({ track }) {
+  const App = React.useContext(AppContext);
+
   return (
     <div
       className="item"
       style={{ backgroundImage: `url("${track.album.cover_medium}")` }}
-      onMouseEnter={() => props.changeAudio(track.preview)}
-      onMouseLeave={() => props.changeAudio("")}
+      onMouseEnter={() => App.setAudio(track.preview)}
+      onMouseLeave={() => App.setAudio("")}
     >
       <div
         onMouseEnter={(e) => (e.target.style.color = "rgb(43, 115, 209)")}
         onMouseLeave={(e) => (e.target.style.color = "white")}
         onClick={() => {
-          props.setValue(track.artist.name);
-          props.doFetch("q=" + track.artist.name);
+          App.setValue(track.artist.name);
+          App.doFetch("q=" + track.artist.name);
         }}
       >
         {track.artist.name}
@@ -22,4 +25,3 @@ export default function Track({ track, ...props }) {
     </div>
   );
 }
-

@@ -15,13 +15,7 @@ export default React.memo(
     return (
       <div className="artistItems">
         {artistsItems.map((track, index) => (
-          <Artist
-            key={index}
-            track={track}
-            changeAudio={props.changeAudio}
-            setValue={props.setValue}
-            doFetch={props.doFetch}
-          />
+          <Artist key={index} track={track} />
         ))}
       </div>
     );
